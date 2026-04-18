@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Europe 2025 — Dad & Avery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paris: #1a3a5c;
+    --paris-light: #e8f0f8;
+    --salzburg: #2d5a3d;
+    --salzburg-light: #e8f4ec;
+    --vienna: #5c2d6e;
+    --vienna-light: #f3eaf7;
+    --prague: #7a2d1a;
+    --prague-light: #f8ebe8;
+    --gold: #c9a84c;
+    --cream: #faf8f3;
+    --ink: #1a1a1a;
+    --muted: #7a7570;
+    --border: #e0dbd0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--paris);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Eiffelturm_Paris.jpg/1280px-Eiffelturm_Paris.jpg') center/cover;
+    opacity: 0.18;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp .8s .2s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp .8s .4s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,.65);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp .8s .6s forwards;
+  }
+  .city-pills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp .8s .8s forwards;
+  }
+  .city-pill {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.25);
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .city-pill:hover { background: rgba(255,255,255,.22); transform: translateY(-2px); }
+  .scroll-hint {
+    color: rgba(255,255,255,.4);
+    font-size: 12px;
+    letter-spacing: .1em;
+    opacity: 0;
+    animation: fadeUp .8s 1s forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,248,243,.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-item {
+    padding: 14px 22px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+  }
+  .nav-item:hover { color: var(--ink); }
+  .nav-item.paris:hover, .nav-item.paris.active { color: var(--paris); border-color: var(--paris); }
+  .nav-item.salzburg:hover, .nav-item.salzburg.active { color: var(--salzburg); border-color: var(--salzburg); }
+  .nav-item.vienna:hover, .nav-item.vienna.active { color: var(--vienna); border-color: var(--vienna); }
+  .nav-item.prague:hover, .nav-item.prague.active { color: var(--prague); border-color: var(--prague); }
+
+  /* ── CITY SECTIONS ── */
+  .city-section { padding: 80px 0 60px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  .city-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 60px;
+  }
+  .city-header.reverse { direction: rtl; }
+  .city-header.reverse > * { direction: ltr; }
+  .city-header-img {
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative;
+  }
+  .city-header-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s;
+  }
+  .city-header-img:hover img { transform: scale(1.04); }
+  .city-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    margin-bottom: .75rem;
+  }
+  .city-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .city-dates {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  .city-intro { color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 1.5rem; }
+  .vibe-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .vibe-tag {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-weight: 500;
+    background: var(--border);
+    color: var(--muted);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-day { margin-bottom: 2.5rem; position: relative; }
+  .tl-day::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    background: var(--cream);
+    margin-left: -4px;
+  }
+  .tl-day-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .5rem;
+  }
+  .tl-day-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: .75rem;
+  }
+  .tl-blocks { display: flex; flex-direction: column; gap: 8px; }
+  .tl-block {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1rem;
+    align-items: start;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    transition: box-shadow .2s;
+  }
+  .tl-block:hover { box-shadow: 0 4px 20px rgba(0,0,0,.07); }
+  .tl-time {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    padding: 4px 0;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    line-height: 1.4;
+  }
+  .tl-block-content { }
+  .tl-block-title { font-weight: 500; font-size: 13px; margin-bottom: 4px; }
+  .tl-block-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .tl-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .tl-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+  .tag-active { background: #e8f4ec; color: #2d5a3d; }
+  .tag-dress { background: #f8eaf5; color: #6a2d7a; }
+  .tag-lounge { background: #eef4fb; color: #1a3a5c; }
+  .tag-art { background: #fff8e8; color: #7a5a1a; }
+  .tag-brag { background: #fef3e8; color: #8b3a10; }
+  .tag-transit { background: #f0f0ee; color: #5a5a5a; }
+  .tag-performance { background: #f5e8f8; color: #5c2d6e; }
+
+  /* ── EXPERIENCE CARDS ── */
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .exp-card {
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .exp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.1); }
+  .exp-img {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+  .exp-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+  .exp-card:hover .exp-img img { transform: scale(1.06); }
+  .exp-body { padding: 14px 16px; }
+  .exp-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .exp-name { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 6px; }
+  .exp-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+  .exp-link { font-size: 11px; font-weight: 500; color: inherit; text-decoration: underline; }
+
+  /* ── BOOKING STRIP ── */
+  .booking-strip {
+    background: var(--ink);
+    color: #fff;
+    padding: 60px 0;
+    margin-top: 80px;
+  }
+  .booking-strip h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: var(--gold);
+  }
+  .booking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .booking-item {
+    padding: 20px 24px;
+    background: #1a1a1a;
+    transition: background .2s;
+  }
+  .booking-item:hover { background: #222; }
+  .booking-priority {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .booking-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .booking-detail { font-size: 12px; color: rgba(255,255,255,.5); margin-bottom: 10px; }
+  .booking-btn {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,.2);
+    color: rgba(255,255,255,.8);
+    transition: all .2s;
+  }
+  .booking-btn:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.4); }
+
+  /* ── CITY COLORS ── */
+  .paris-color { color: var(--paris); }
+  .paris-bg { background: var(--paris); }
+  .paris-section { border-top: 3px solid var(--paris); }
+  .salzburg-color { color: var(--salzburg); }
+  .salzburg-bg { background: var(--salzburg); }
+  .salzburg-section { border-top: 3px solid var(--salzburg); }
+  .vienna-color { color: var(--vienna); }
+  .vienna-bg { background: var(--vienna); }
+  .vienna-section { border-top: 3px solid var(--vienna); }
+  .prague-color { color: var(--prague); }
+  .prague-bg { background: var(--prague); }
+  .prague-section { border-top: 3px solid var(--prague); }
+
+  /* ── AVERY SECTION ── */
+  .avery-section {
+    background: linear-gradient(135deg, #1a3a5c 0%, #5c2d6e 100%);
+    padding: 80px 0;
+    color: #fff;
+  }
+  .avery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,.15);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.15);
+    margin-top: 2rem;
+  }
+  .avery-item {
+    padding: 18px 22px;
+    background: rgba(0,0,0,.2);
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .avery-check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--ink);
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 60px 0 50px;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-divider span {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .city-header { grid-template-columns: 1fr; }
+    .city-header.reverse { direction: ltr; }
+    .avery-grid { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: 1fr 1fr; }
+    .tl-block { grid-template-columns: 70px 1fr; }
+  }
+  @media (max-width: 480px) {
+    .exp-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">A Senior Trip · May 26 – June 4, 2025</div>
+  <h1 class="hero-title">Dad &amp; <em>Avery's</em><br>Europe</h1>
+  <p class="hero-sub">Paris &nbsp;·&nbsp; Salzburg &nbsp;·&nbsp; Vienna &nbsp;·&nbsp; Prague</p>
+  <div class="city-pills">
+    <a href="#paris" class="city-pill">Paris</a>
+    <a href="#salzburg" class="city-pill">Salzburg</a>
+    <a href="#vienna" class="city-pill">Vienna</a>
+    <a href="#prague" class="city-pill">Prague</a>
+    <a href="#bookings" class="city-pill">Book This Trip</a>
+  </div>
+  <div class="scroll-hint">↓ scroll to explore</div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <a href="#paris" class="nav-item paris">Paris</a>
+  <a href="#salzburg" class="nav-item salzburg">Salzburg</a>
+  <a href="#vienna" class="nav-item vienna">Vienna</a>
+  <a href="#prague" class="nav-item prague">Prague</a>
+  <a href="#avery" class="nav-item">For Avery</a>
+  <a href="#bookings" class="nav-item">Book It</a>
+</nav>
+
+<!-- ══ PARIS ══ -->
+<section id="paris" class="city-section paris-section">
+  <div class="container">
+    <div class="city-header">
+      <div class="city-header-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Eiffelturm_Paris.jpg/1280px-Eiffelturm_Paris.jpg" alt="Paris rooftops with Eiffel Tower">
+      </div>
+      <div>
+        <div class="city-label paris-color">May 26 – 28 &nbsp;·&nbsp; 2 nights</div>
+        <h2 class="city-name paris-color">Paris</h2>
+        <p class="city-dates">The City of Light. Your first two days set the tone for everything.</p>
+        <p class="city-intro">You're starting in arguably the greatest city in the world for art and atmosphere. The Louvre, the Orsay, the Eiffel Tower at dusk, and a full day at Versailles — Paris is where Avery first realizes this trip is unlike anything she's done before.</p>
+        <div class="vibe-tags">
+          <span class="vibe-tag">Art museums</span>
+          <span class="vibe-tag">Dress-up moments</span>
+          <span class="vibe-tag">Iconic landmarks</span>
+          <span class="vibe-tag">Versailles</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience cards -->
+    <div class="exp-grid">
+      <a href="https://www.louvre.fr/en/explore/the-palace/a-map-of-the-louvre" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Louvre_Museum_Wikimedia_Commons.jpg/800px-Louvre_Museum_Wikimedia_Commons.jpg" alt="The Louvre"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 27 morning</div>
+          <div class="exp-name">The Louvre</div>
+          <div class="exp-desc">Mona Lisa, Venus de Milo, Winged Victory. The greatest art collection on earth. 3 hours — curate, don't try to see it all.</div>
+          <div class="exp-link">ticketlouvre.fr →</div>
+        </div>
+      </a>
+      <a href="https://www.musee-orsay.fr/en/artworks" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Mus%C3%A9e_d%27Orsay%2C_North-West_facade.jpg/800px-Mus%C3%A9e_d%27Orsay%2C_North-West_facade.jpg" alt="Musée d'Orsay"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 27 afternoon</div>
+          <div class="exp-name">Musée d'Orsay</div>
+          <div class="exp-desc">Monet, Renoir, Degas, Van Gogh's bedroom. Avery will likely prefer this over the Louvre — more intimate, more emotional.</div>
+          <div class="exp-link">musee-orsay.fr →</div>
+        </div>
+      </a>
+      <a href="https://ticket.eiffeltower.com" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_eiffel_at_sunrise_from_the_trocadero.jpg/800px-Tour_eiffel_at_sunrise_from_the_trocadero.jpg" alt="Eiffel Tower at night"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 27 evening</div>
+          <div class="exp-name">Eiffel Tower at dusk</div>
+          <div class="exp-desc">Summit elevator as the sun sets. Stay for the 10PM light show — 5 minutes of pure magic. Her best photo of the trip.</div>
+          <div class="exp-link">ticket.eiffeltower.com →</div>
+        </div>
+      </a>
+      <a href="https://en.chateauversailles.fr/plan-my-visit/tickets-and-prices" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Versailles_-_Galerie_des_Glaces.jpg/1024px-Versailles_-_Galerie_des_Glaces.jpg" alt="Versailles Hall of Mirrors"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 28 morning</div>
+          <div class="exp-name">Palace of Versailles</div>
+          <div class="exp-desc">Hall of Mirrors, Marie Antoinette's hamlet, rowboat on the Grand Canal. A full royal morning before flying to Salzburg.</div>
+          <div class="exp-link">chateauversailles.fr →</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-divider"><span>Day by day</span></div>
+
+    <!-- Timeline -->
+    <div class="timeline paris-color">
+      <div class="tl-day">
+        <div class="tl-day-label">Tuesday May 26</div>
+        <div class="tl-day-title">Arrive &amp; settle in</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time paris-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Arrival</div>
+              <div class="tl-block-desc">Land CDG 10AM · RER B into city (35 min) · check in · first coffee in Paris</div>
+              <div class="tl-tags"><span class="tl-tag tag-transit">transit</span><span class="tl-tag tag-lounge">settle in</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:var(--salzburg);font-size:9px">12PM<br>—<br>5PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Île de la Cité &amp; Left Bank</div>
+              <div class="tl-block-desc">Notre-Dame exterior · Sainte-Chapelle stained glass · walk Pont Neuf · first café on the Left Bank</div>
+              <div class="tl-tags"><span class="tl-tag tag-art">art</span><span class="tl-tag tag-lounge">wander</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time vienna-bg" style="font-size:9px">5PM<br>—<br>10PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Seine at golden hour</div>
+              <div class="tl-block-desc">Walk along the river as the city lights up · casual dinner near your hotel · early night — jet lag hits</div>
+              <div class="tl-tags"><span class="tl-tag tag-dress">photo moment</span><span class="tl-tag tag-lounge">relax</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-day-label">Wednesday May 27</div>
+        <div class="tl-day-title">The big art day</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time paris-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">The Louvre</div>
+              <div class="tl-block-desc">Arrive at opening · Mona Lisa first · Venus de Milo · Winged Victory · 3 hrs max</div>
+              <div class="tl-tags"><span class="tl-tag tag-art">art</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:var(--salzburg);font-size:9px">12PM<br>—<br>5PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Lunch + Musée d'Orsay</div>
+              <div class="tl-block-desc">Café Marly terrace · walk to d'Orsay · Monet, Renoir, Degas, Van Gogh's bedroom</div>
+              <div class="tl-tags"><span class="tl-tag tag-art">art</span><span class="tl-tag tag-dress">dress up</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time vienna-bg" style="font-size:9px">5PM<br>—<br>10PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Eiffel Tower at dusk + light show</div>
+              <div class="tl-block-desc">Summit elevator · dinner in the 7th · stay for the 10PM light show — worth every minute</div>
+              <div class="tl-tags"><span class="tl-tag tag-dress">dress up</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-day-label">Thursday May 28</div>
+        <div class="tl-day-title">Versailles + fly to Salzburg</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time paris-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Palace of Versailles</div>
+              <div class="tl-block-desc">RER C at 8AM · Hall of Mirrors · gardens · rowboat on the Grand Canal · Marie Antoinette's hamlet</div>
+              <div class="tl-tags"><span class="tl-tag tag-dress">dress up</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#888;font-size:9px">12PM<br>—<br>8PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Fly Paris → Salzburg</div>
+              <div class="tl-block-desc">CDG → SZG (~1.5 hrs) · arrive 4–5PM · check in · first walk through the old town at dusk</div>
+              <div class="tl-tags"><span class="tl-tag tag-transit">flight</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SALZBURG ══ -->
+<section id="salzburg" class="city-section salzburg-section" style="background:#f7faf8">
+  <div class="container">
+    <div class="city-header reverse">
+      <div class="city-header-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Salzburg_-_Altstadt.jpg/1024px-Salzburg_-_Altstadt.jpg" alt="Salzburg old town with fortress">
+      </div>
+      <div>
+        <div class="city-label salzburg-color">May 28 – 30 &nbsp;·&nbsp; 2 nights</div>
+        <h2 class="city-name salzburg-color">Salzburg</h2>
+        <p class="city-dates">Austria's most beautiful small city. Mozart's birthplace. The Alps right outside.</p>
+        <p class="city-intro">This is the experiential heart of the trip. Salt mines underground. A medieval fortress above. High tea at the most famous café in Austria. An evening concert in a Baroque church. Salzburg is small, totally walkable, and impossible to do wrong.</p>
+        <div class="vibe-tags">
+          <span class="vibe-tag">Salt mines</span>
+          <span class="vibe-tag">Medieval fortress</span>
+          <span class="vibe-tag">High tea at Sacher</span>
+          <span class="vibe-tag">Evening concert</span>
+          <span class="vibe-tag">Sound of Music</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-grid">
+      <a href="https://www.salzwelten.at/en" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Salzbergwerk_Berchtesgaden.jpg/800px-Salzbergwerk_Berchtesgaden.jpg" alt="Underground salt mine"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 29 morning · Book ahead</div>
+          <div class="exp-name">Hallstatt Salt Mines</div>
+          <div class="exp-desc">Miners' gear, a wooden slide underground, a lamp-lit subterranean lake. Unlike anything else on this continent. She will talk about this for years.</div>
+          <div class="exp-link">salzwelten.at →</div>
+        </div>
+      </a>
+      <a href="https://www.salzburg-burgen.at/en/hohensalzburg-castle" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Salzburg_-_Hohensalzburg.jpg/1024px-Salzburg_-_Hohensalzburg.jpg" alt="Hohensalzburg Fortress"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 29 afternoon</div>
+          <div class="exp-name">Hohensalzburg Fortress</div>
+          <div class="exp-desc">One of the best-preserved medieval fortresses in Europe. Funicular up, panoramic Alpine views, and the entire old town spread below.</div>
+          <div class="exp-link">salzburg-burgen.at →</div>
+        </div>
+      </a>
+      <a href="https://www.sacher.com/en/restaurants/cafe-sacher-salzburg" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/800px-A_small_cup_of_coffee.JPG" alt="Elegant café high tea"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 29 evening</div>
+          <div class="exp-name">Café Sacher High Tea</div>
+          <div class="exp-desc">The most iconic café in Austria. Sachertorte, fine tea, Avery in a dress. This is exactly the kind of refined, beautiful moment she'll tell people about.</div>
+          <div class="exp-link">sacher.com →</div>
+        </div>
+      </a>
+      <a href="https://www.salzburg-concerts.com" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Mozarteum_Salzburg.jpg/800px-Mozarteum_Salzburg.jpg" alt="Classical concert in a cathedral"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 29 evening</div>
+          <div class="exp-name">Evening concert</div>
+          <div class="exp-desc">Mozart or classical music performed in a Baroque church or the Mozarteum. Intimate, no language barrier, and genuinely atmospheric.</div>
+          <div class="exp-link">salzburg-concerts.com →</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-divider"><span>Day by day</span></div>
+
+    <div class="timeline salzburg-color">
+      <div class="tl-day">
+        <div class="tl-day-label">Friday May 29</div>
+        <div class="tl-day-title">Salt mines + fortress + high tea</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time salzburg-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Hallstatt Salt Mines</div>
+              <div class="tl-block-desc">Bus from Salzburg · miners' gear · wooden slide · underground lake · back by noon</div>
+              <div class="tl-tags"><span class="tl-tag tag-active">active</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#3d7a52;font-size:9px">12PM<br>—<br>5PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Hohensalzburg Fortress + old town</div>
+              <div class="tl-block-desc">Funicular up · panoramic views · wander the Altstadt · Mozart's birthplace street</div>
+              <div class="tl-tags"><span class="tl-tag tag-active">active</span><span class="tl-tag tag-dress">photo moment</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#1a4a2a;font-size:9px">5PM<br>—<br>10PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Café Sacher high tea + evening concert</div>
+              <div class="tl-block-desc">Sachertorte and tea at the Sacher · classical concert in a Baroque church</div>
+              <div class="tl-tags"><span class="tl-tag tag-dress">dress up</span><span class="tl-tag tag-performance">performance</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-day-label">Saturday May 30</div>
+        <div class="tl-day-title">Mirabell Gardens + scenic train to Vienna</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time salzburg-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Slow morning + Mirabell Gardens</div>
+              <div class="tl-block-desc">Sleep in · long breakfast · Mirabell Gardens (Sound of Music "Do Re Mi" was filmed here) · pack</div>
+              <div class="tl-tags"><span class="tl-tag tag-lounge">Netflix + chill</span><span class="tl-tag tag-dress">photo moment</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#888;font-size:9px">12PM<br>—<br>5PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Scenic Railjet: Salzburg → Vienna</div>
+              <div class="tl-block-desc">~2.5 hrs through the Salzkammergut lake district · window seats · arrive Vienna 3–4PM</div>
+              <div class="tl-tags"><span class="tl-tag tag-transit">scenic rail</span><span class="tl-tag tag-lounge">relax</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIENNA ══ -->
+<section id="vienna" class="city-section vienna-section">
+  <div class="container">
+    <div class="city-header">
+      <div class="city-header-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Schonbrunn_front.jpg/1024px-Schonbrunn_front.jpg" alt="Vienna Schönbrunn Palace">
+      </div>
+      <div>
+        <div class="city-label vienna-color">May 30 – Jun 1 &nbsp;·&nbsp; 2 nights</div>
+        <h2 class="city-name vienna-color">Vienna</h2>
+        <p class="city-dates">Imperial grandeur. Klimt's The Kiss. White horses in a Baroque hall.</p>
+        <p class="city-intro">Vienna is where the trip reaches its peak of elegance. Two palaces, The Kiss by Klimt in person, the Spanish Riding School, and possibly a night at the Vienna State Opera. This is the city where Avery gets to feel like she's living in a movie. She should be in a dress the entire time.</p>
+        <div class="vibe-tags">
+          <span class="vibe-tag">Schönbrunn Palace</span>
+          <span class="vibe-tag">Klimt's The Kiss</span>
+          <span class="vibe-tag">Spanish Riding School</span>
+          <span class="vibe-tag">Vienna State Opera</span>
+          <span class="vibe-tag">High tea</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-grid">
+      <a href="https://www.schoenbrunn.at/en" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Schloss_Sch%C3%B6nbrunn_Wien_2014_%28Zachi_Evenor%29_08.jpg/1024px-Schloss_Sch%C3%B6nbrunn_Wien_2014_%28Zachi_Evenor%29_08.jpg" alt="Schönbrunn Palace gardens"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 31 morning</div>
+          <div class="exp-name">Schönbrunn Palace</div>
+          <div class="exp-desc">Habsburg summer palace, 40 opulent rooms, and the Gloriette hilltop with the best free view in Vienna. Different from Versailles — more personal, more intimate.</div>
+          <div class="exp-link">schoenbrunn.at →</div>
+        </div>
+      </a>
+      <a href="https://www.belvedere.at/en/tickets" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg/757px-The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg" alt="Klimt The Kiss painting"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 31 afternoon · Book timed entry</div>
+          <div class="exp-name">Klimt's "The Kiss" at the Belvedere</div>
+          <div class="exp-desc">One of the most famous paintings in the world — two figures wrapped in gold, lost in a moment. Avery will stand in front of this and feel something. Promise.</div>
+          <div class="exp-link">belvedere.at →</div>
+        </div>
+      </a>
+      <a href="https://www.srs.at/en/tickets" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Lipizzaner_Stallion.jpg/800px-Lipizzaner_Stallion.jpg" alt="White horses performing"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">Jun 1 morning · Book early</div>
+          <div class="exp-name">Spanish Riding School</div>
+          <div class="exp-desc">White Lipizzaner stallions performing classical dressage in a Baroque imperial hall. She will not expect to be moved by this. She will be moved by this.</div>
+          <div class="exp-link">srs.at →</div>
+        </div>
+      </a>
+      <a href="https://www.wiener-staatsoper.at/en/season-calendar" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Vienna_State_Opera.jpg/1024px-Vienna_State_Opera.jpg" alt="Vienna State Opera interior"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">May 31 evening · Check schedule</div>
+          <div class="exp-name">Vienna State Opera</div>
+          <div class="exp-desc">Standing room tickets ~€10, sold 80 minutes before curtain. Even one act in that hall is an experience unlike any other. Check the June schedule now.</div>
+          <div class="exp-link">wiener-staatsoper.at →</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-divider"><span>Day by day</span></div>
+
+    <div class="timeline vienna-color">
+      <div class="tl-day">
+        <div class="tl-day-label">Sunday May 31</div>
+        <div class="tl-day-title">Schönbrunn + Belvedere + Opera</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time vienna-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Schönbrunn Palace</div>
+              <div class="tl-block-desc">Arrive 9AM · Grand Tour 40 rooms · gardens walk · Gloriette hilltop view · done by 11:30</div>
+              <div class="tl-tags"><span class="tl-tag tag-dress">palace</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#7a3d8f;font-size:9px">12PM<br>—<br>5PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Naschmarkt lunch + Belvedere (The Kiss)</div>
+              <div class="tl-block-desc">Vienna's famous open-air market · Upper Belvedere · Klimt's The Kiss · Baroque palace gardens</div>
+              <div class="tl-tags"><span class="tl-tag tag-art">art</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#3d1a4a;font-size:9px">5PM<br>—<br>10PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Hotel Imperial high tea + State Opera</div>
+              <div class="tl-block-desc">High tea at the Hotel Imperial · Vienna State Opera standing room if something is playing</div>
+              <div class="tl-tags"><span class="tl-tag tag-dress">dress up</span><span class="tl-tag tag-performance">performance</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-day-label">Monday Jun 1</div>
+        <div class="tl-day-title">Spanish Riding School + train to Prague</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time vienna-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Spanish Riding School</div>
+              <div class="tl-block-desc">Morning performance · white Lipizzaner stallions in a Baroque imperial hall · utterly unexpected and magical</div>
+              <div class="tl-tags"><span class="tl-tag tag-performance">performance</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#888;font-size:9px">12PM<br>—<br>6PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Train Vienna → Prague (~4 hrs)</div>
+              <div class="tl-block-desc">Lunch near Wien Hbf · scenic EC train through Moravia · arrive Prague 5–6PM · first evening in the most romantic city in Central Europe</div>
+              <div class="tl-tags"><span class="tl-tag tag-transit">scenic rail</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRAGUE ══ -->
+<section id="prague" class="city-section prague-section" style="background:#fdf8f6">
+  <div class="container">
+    <div class="city-header reverse">
+      <div class="city-header-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Prague_-_Charles_Bridge_at_sunrise_%283%29.jpg/1024px-Prague_-_Charles_Bridge_at_sunrise_%283%29.jpg" alt="Prague Charles Bridge at sunset">
+      </div>
+      <div>
+        <div class="city-label prague-color">Jun 1 – 4 &nbsp;·&nbsp; 2 nights + overnight train home</div>
+        <h2 class="city-name prague-color">Prague</h2>
+        <p class="city-dates">The most cinematic city in Europe. Medieval, golden, impossibly beautiful.</p>
+        <p class="city-intro">Prague is where the trip exhales. It's cheaper than everywhere else, your friend's family might be here, and it looks like a fairy tale at every hour of the day. The castle, Charles Bridge, black light theatre, and a relaxed final day — then the overnight train takes you to sleep in Prague and wake up in Paris.</p>
+        <div class="vibe-tags">
+          <span class="vibe-tag">Prague Castle</span>
+          <span class="vibe-tag">Charles Bridge</span>
+          <span class="vibe-tag">Black light theatre</span>
+          <span class="vibe-tag">Local connection</span>
+          <span class="vibe-tag">Overnight train home</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-grid">
+      <a href="https://www.hrad.cz/en/prague-castle-for-visitors" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Prague_-_Hradschin.jpg/1024px-Prague_-_Hradschin.jpg" alt="Prague Castle"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">Jun 2 morning</div>
+          <div class="exp-name">Prague Castle</div>
+          <div class="exp-desc">Largest ancient castle complex in the world. St. Vitus Cathedral, Golden Lane's tiny medieval cottages, and the most beautiful urban panorama in Central Europe.</div>
+          <div class="exp-link">hrad.cz →</div>
+        </div>
+      </a>
+      <a href="https://www.prague.eu/en/object/places/93/charles-bridge" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Charles_Bridge_Prague.jpg/1024px-Charles_Bridge_Prague.jpg" alt="Charles Bridge Prague"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">Jun 2 afternoon</div>
+          <div class="exp-name">Charles Bridge</div>
+          <div class="exp-desc">Baroque statues, musicians, the castle above, the river below. The most romantic bridge in Europe. She will want to linger here.</div>
+          <div class="exp-link">prague.eu →</div>
+        </div>
+      </a>
+      <a href="https://www.blacktheatreprahaticket.com" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Teatro_Amazonas_interior.jpg/800px-Teatro_Amazonas_interior.jpg" alt="Theatrical performance with lights"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">Jun 2 evening</div>
+          <div class="exp-name">Black Light Theatre</div>
+          <div class="exp-desc">Abstract visual theatre unique to Prague. Glowing costumes, surreal storytelling, no language needed. Unlike anything else in the world — totally brag-worthy.</div>
+          <div class="exp-link">blacktheatreprahaticket.com →</div>
+        </div>
+      </a>
+      <a href="https://www.vrtbovska.cz/en" target="_blank" class="exp-card">
+        <div class="exp-img"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Prague_-_Vrtba_garden.jpg/800px-Prague_-_Vrtba_garden.jpg" alt="Beautiful garden in Prague"></div>
+        <div class="exp-body">
+          <div class="exp-eyebrow">Jun 3 — slow day</div>
+          <div class="exp-name">Vrtba Garden + spa morning</div>
+          <div class="exp-desc">A hidden Baroque terraced garden most tourists never find. Or a spa morning. Or just a café and a book. This is the Netflix and chill day — totally deserved.</div>
+          <div class="exp-link">vrtbovska.cz →</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-divider"><span>Day by day</span></div>
+
+    <div class="timeline prague-color">
+      <div class="tl-day">
+        <div class="tl-day-label">Tuesday Jun 2</div>
+        <div class="tl-day-title">Castle + old town + black light theatre</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time prague-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Prague Castle district</div>
+              <div class="tl-block-desc">St. Vitus Cathedral · Golden Lane · panoramic views over the city · most beautiful spot in Central Europe</div>
+              <div class="tl-tags"><span class="tl-tag tag-brag">brag-worthy</span><span class="tl-tag tag-dress">photo moment</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#a03d22;font-size:9px">12PM<br>—<br>5PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Charles Bridge + old town</div>
+              <div class="tl-block-desc">Walk down from castle · Charles Bridge · lunch in old town · Astronomical Clock · Jewish Quarter</div>
+              <div class="tl-tags"><span class="tl-tag tag-lounge">wander</span><span class="tl-tag tag-art">architecture</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#5a1a08;font-size:9px">5PM<br>—<br>10PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Black light theatre</div>
+              <div class="tl-block-desc">Performance unique to Prague · glowing costumes · no language needed · dinner before or after</div>
+              <div class="tl-tags"><span class="tl-tag tag-performance">performance</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-day-label">Wednesday Jun 3</div>
+        <div class="tl-day-title">Slow day + friend's family + overnight train</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time prague-bg" style="font-size:9px">8AM<br>—<br>12PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Slow morning — your choice</div>
+              <div class="tl-block-desc">Sleep in · café · Vrtba Garden · or a spa morning. This is the Netflix and chill day.</div>
+              <div class="tl-tags"><span class="tl-tag tag-lounge">Netflix + chill</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#a03d22;font-size:9px">12PM<br>—<br>5PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Friend's family — local Prague</div>
+              <div class="tl-block-desc">If available: they take you somewhere no guidebook would send you. If not: Letná Park beer garden overlooking the city.</div>
+              <div class="tl-tags"><span class="tl-tag tag-lounge">local experience</span></div>
+            </div>
+          </div>
+          <div class="tl-block">
+            <div class="tl-time" style="background:#5a1a08;font-size:9px">5PM<br>—<br>11PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Last dinner + board overnight train</div>
+              <div class="tl-block-desc">Splurge on dinner — Prague is cheap. Board overnight train ~6–7PM in a private 2-person cabin. She goes to sleep in Prague.</div>
+              <div class="tl-tags"><span class="tl-tag tag-transit">overnight train</span><span class="tl-tag tag-brag">brag-worthy</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-day">
+        <div class="tl-day-label">Thursday Jun 4</div>
+        <div class="tl-day-title">Wake up in Paris · fly home</div>
+        <div class="tl-blocks">
+          <div class="tl-block">
+            <div class="tl-time" style="background:var(--paris);font-size:9px">7AM<br>—<br>2PM</div>
+            <div class="tl-block-content">
+              <div class="tl-block-title">Arrive Paris Gare de l'Est · CDG · home</div>
+              <div class="tl-block-desc">Wake up rolling into Paris · last croissant · RER B to CDG · depart 2:40PM to DFW</div>
+              <div class="tl-tags"><span class="tl-tag tag-transit">home</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOR AVERY ══ -->
+<section id="avery" class="avery-section">
+  <div class="container">
+    <div style="max-width:600px; margin-bottom: 2rem;">
+      <div style="font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">For Avery</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:400;color:#fff;line-height:1.2;margin-bottom:1rem">What you'll be able<br>to say you've <em>done</em></h2>
+      <p style="color:rgba(255,255,255,.6);font-size:15px">This isn't just a trip. It's a collection of stories you'll tell people for the rest of your life.</p>
+    </div>
+    <div class="avery-grid">
+      <div class="avery-item"><div class="avery-check">✓</div><div>Stood in front of the Mona Lisa and Venus de Milo at the Louvre in Paris</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Watched the Eiffel Tower light show from the summit at dusk</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Walked through the Hall of Mirrors at the Palace of Versailles</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Rode a wooden slide underground in an Austrian salt mine and floated across a subterranean lake</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Had high tea at Café Sacher in Salzburg — the most famous café in Austria</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Saw Klimt's "The Kiss" in person at the Belvedere in Vienna</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Watched white Lipizzaner stallions perform classical dressage in a Baroque imperial hall</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Stood in the Vienna State Opera</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Explored the largest ancient castle complex in the world in Prague</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Saw black light theatre — a performance style that exists almost nowhere else on earth</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div style="font-style:italic;color:var(--gold)">Fell asleep in Prague. Woke up in Paris.</div></div>
+      <div class="avery-item"><div class="avery-check">✓</div><div>Did all of this with my dad, for my senior trip</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BOOKINGS ══ -->
+<section id="bookings" class="booking-strip">
+  <div class="container">
+    <h2>Book This Trip</h2>
+    <div class="booking-grid">
+      <div class="booking-item">
+        <div class="booking-priority">Priority 1 — Book Now</div>
+        <div class="booking-name">Paris → Salzburg flight</div>
+        <div class="booking-detail">CDG → SZG, May 28 · ~1.5 hrs</div>
+        <a href="https://flights.google.com" target="_blank" class="booking-btn">Google Flights →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Priority 1 — Book Now</div>
+        <div class="booking-name">Overnight train Prague → Paris</div>
+        <div class="booking-detail">Jun 3 evening · private 2-person cabin</div>
+        <a href="https://www.raileurope.com" target="_blank" class="booking-btn">RailEurope.com →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Priority 1 — Book Now</div>
+        <div class="booking-name">Hallstatt Salt Mines</div>
+        <div class="booking-detail">May 29 · sells out in peak season</div>
+        <a href="https://www.salzwelten.at/en" target="_blank" class="booking-btn">salzwelten.at →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Priority 1 — Book Now</div>
+        <div class="booking-name">Spanish Riding School</div>
+        <div class="booking-detail">Jun 1 morning · limited tickets</div>
+        <a href="https://www.srs.at/en/tickets" target="_blank" class="booking-btn">srs.at →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Priority 2 — This Week</div>
+        <div class="booking-name">Louvre timed entry</div>
+        <div class="booking-detail">May 27 · sells out weeks ahead</div>
+        <a href="https://www.ticketlouvre.fr" target="_blank" class="booking-btn">ticketlouvre.fr →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Priority 2 — This Week</div>
+        <div class="booking-name">Eiffel Tower summit</div>
+        <div class="booking-detail">May 27 evening · book summit elevator</div>
+        <a href="https://ticket.eiffeltower.com" target="_blank" class="booking-btn">ticket.eiffeltower.com →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Priority 2 — This Week</div>
+        <div class="booking-name">Versailles skip-the-line</div>
+        <div class="booking-detail">May 28 morning · essential in late May</div>
+        <a href="https://en.chateauversailles.fr/plan-my-visit/tickets-and-prices" target="_blank" class="booking-btn">chateauversailles.fr →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Priority 2 — This Week</div>
+        <div class="booking-name">Belvedere (The Kiss)</div>
+        <div class="booking-detail">May 31 afternoon · timed entry</div>
+        <a href="https://www.belvedere.at/en/tickets" target="_blank" class="booking-btn">belvedere.at →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Hotels — Marriott Bonvoy</div>
+        <div class="booking-name">Paris · 2 nights</div>
+        <div class="booking-detail">May 26–28 · Renaissance or W Paris Opera</div>
+        <a href="https://www.marriott.com" target="_blank" class="booking-btn">marriott.com →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Hotels — AMEX Fine Hotels</div>
+        <div class="booking-name">Salzburg · 2 nights</div>
+        <div class="booking-detail">May 28–30 · Hotel Sacher Salzburg</div>
+        <a href="https://www.sacher.com/en/hotels/hotel-sacher-salzburg" target="_blank" class="booking-btn">sacher.com →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Hotels — Marriott Bonvoy</div>
+        <div class="booking-name">Vienna · 2 nights</div>
+        <div class="booking-detail">May 30 – Jun 1 · Marriott Wien</div>
+        <a href="https://www.marriott.com" target="_blank" class="booking-btn">marriott.com →</a>
+      </div>
+      <div class="booking-item">
+        <div class="booking-priority">Hotels — Best Bonvoy Value</div>
+        <div class="booking-name">Prague · 2 nights</div>
+        <div class="booking-detail">Jun 1–3 · W Prague or Marriott Prague</div>
+        <a href="https://www.marriott.com" target="_blank" class="booking-btn">marriott.com →</a>
+      </div>
+    </div>
+    <p style="margin-top:2rem;font-size:13px;color:rgba(255,255,255,.4);text-align:center">Train bookings: Salzburg → Vienna and Vienna → Prague at <a href="https://www.oebb.at/en" target="_blank" style="color:var(--gold)">oebb.at</a> &nbsp;·&nbsp; Eurail Global Pass option at <a href="https://www.raileurope.com" target="_blank" style="color:var(--gold)">raileurope.com</a></p>
+  </div>
+</section>
+
+<script>
+  // Active nav highlighting on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navItems.forEach(n => {
+      n.classList.remove('active');
+      if (n.getAttribute('href') === '#' + current) n.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
